@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&display=swap');
+::-webkit-scrollbar {
+    width: 8px;
+    margin-left: 2px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.outer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainCard {
+    min-height: 80vh;
+    width: 85%;
+    padding: 2rem;
+    padding-top: 1.5rem;
+}
+
+.topPart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.name1Div,
+.name2Div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.pic {
+    background-color: grey;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border: 2px solid white;
+    z-index: 1;
+    margin-right: 1rem;
+}
+
+.line {
+    display: none;
+    height: 60%;
+    z-index: 0;
+    width: 3px;
+    background-color: #7EE3D7;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 12px;
+    border-radius: 10px;
+}
+
+.mood:hover {
+    cursor: pointer;
+}
+
+.name {
+    color: #E5FFFF;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.name1 {
+    margin-left: 2rem;
+}
+
+.name2 {
+    margin-right: 2rem;
+}
+
+.middlePart {
+    display: flex;
+    justify-content: space-around;
+    color: #E5FFFF;
+}
+
+.leftOut,
+.rightOut {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 25rem;
+    overflow-y: scroll;
+}
+
+.leftOut :last-child {
+    margin-bottom: 1rem
+}
+
+.rightOut :last-child {
+    margin-bottom: 1rem
+}
+
+.leftOut :first-child {
+    margin-top: 0.5rem
+}
+
+.rightOut :first-child {
+    margin-top: 0.5rem
+}
+
+.left,
+.right {
+    padding: 2rem;
+    background: #44b7b7;
+    border-radius: 20px;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    height: auto;
+}
+
+.date {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.bottomPart {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    color: #E5FFFF;
+}
+
+.bottomPart button {
+    padding: 8px;
+    border-radius: 10px;
+    background-color: #44b7b7;
+    margin: 0 10px;
+    font-size: 14px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 1500px) {
+    .mainCard {
+        min-height: auto;
+    }
+    .line {
+        height: 50%
+    }
+}

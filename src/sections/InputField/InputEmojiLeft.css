@@ -1,0 +1,15 @@
+.emojiLeftInput {
+    font-weight: bold;
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+.mood {
+    font-size: 35px;
+}
+
+.emojiLeftInput:focus,
+.emojiRightInput:focus {
+    font-size: 35px;
+    width: 50px;
+}
