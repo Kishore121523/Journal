@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import "./InputEmojiLeft.css";
+import firebase from "../../firebaseConfig";
 
-const InputEmojiRight = () => {
-  const [value, setValue] = useState("😁");
+const InputEmojiRight = (props) => {
+  const [value, setValue] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
   const handleBlur = () => {
     setIsEditing(false);
-    console.log("Value saved:", value);
+    if (value) {
+      const cardRef = firebase.database().ref(`topPart/${props.cardRef}`);
+      cardRef.update({ value });
+    }
+    window.location.reload(false);
   };
 
   const handleDoubleClick = () => {
@@ -28,9 +33,13 @@ const InputEmojiRight = () => {
       className="emojiRightInput"
       style={{ backgroundColor: "transparent", color: "white", border: "none" }}
     />
+  ) : props.emojiFromDB ? (
+    <p className="mood rightMood" onClick={handleDoubleClick}>
+      {props.emojiFromDB ? props.emojiFromDB : ""}
+    </p>
   ) : (
     <p className="mood rightMood" onClick={handleDoubleClick}>
-      {value ? value : "😉"}
+      {value ? value : "s"}
     </p>
   );
 };

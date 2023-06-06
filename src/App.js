@@ -14,6 +14,8 @@ const App = () => {
   const [pageRefreshed, setpageRefreshed] = useState(false);
   const [localStorageDatekey, setlocalStorageDatekey] = useState(0);
   const [localStorageDatekeyRight, setlocalStorageDatekeyRight] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+
   let defaultDateKey = 0;
   let defaultDateKeyRight = 0;
 
@@ -62,7 +64,15 @@ const App = () => {
     }
   }, []);
 
-  const resetValue = () => {
+  const handleDeleteClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCancelDelete = () => {
+    setShowModal(false);
+  };
+
+  const handleConfirmDelete = () => {
     setlocalStorageDatekey(defaultDateKey);
     setlocalStorageDatekeyRight(defaultDateKeyRight);
     localStorage.setItem("dateLocalStorageKey", defaultDateKey.toString());
@@ -70,6 +80,8 @@ const App = () => {
       "dateLocalStorageKeyRight",
       defaultDateKeyRight.toString()
     );
+    firebase.database().ref().remove();
+    window.location.reload(false);
   };
 
   const addCardLeft = () => {
@@ -120,7 +132,9 @@ const App = () => {
                 />
               ))
             ) : (
-              <div>Press Add Note button to get started</div>
+              <div className="text-center	pt-6 text-[18px]">
+                Press Add Note button to get started
+              </div>
             )}
           </div>
 
@@ -139,7 +153,9 @@ const App = () => {
                 />
               ))
             ) : (
-              <div>Press Add Note button to get started</div>
+              <div className="text-center	pt-6 text-[18px]">
+                Press Add Note button to get started
+              </div>
             )}
           </div>
         </div>
@@ -167,10 +183,22 @@ const App = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="rightAddBtn"
-              onClick={resetValue}
+              onClick={handleDeleteClick}
             >
               Reset
             </motion.button>
+            {showModal && (
+              <div className="modal">
+                <div className="modal-content">
+                  <h2 className="font-bold text-rose-500	">Confirm Delete</h2>
+                  <p>Are you sure you want to delete all the data?</p>
+                  <div className="button-container">
+                    <button onClick={handleConfirmDelete}>Delete</button>
+                    <button onClick={handleCancelDelete}>Cancel</button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
