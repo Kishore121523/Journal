@@ -40,14 +40,26 @@ body {
     text-align: center;
 }
 
-.pic {
-    background-color: grey;
+.pic,
+.picInput {
+    /* background-color: rgba(0, 0, 0, 0.1); */
     height: 80px;
     width: 80px;
     border-radius: 50%;
     border: 2px solid white;
     z-index: 1;
     margin-right: 1rem;
+}
+
+.ying {
+    height: 3rem;
+}
+
+.picInput {
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .line {
