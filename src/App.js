@@ -98,6 +98,9 @@ const App = () => {
 
     fetchDataSearchLeft();
     fetchDataSearchRight();
+
+    setleftCardAddInView(false);
+    setrightCardAddInView(false);
   }, []);
 
   useEffect(() => {
@@ -134,31 +137,41 @@ const App = () => {
     window.location.reload(false);
   };
 
+  const [leftCardAddInView, setleftCardAddInView] = useState(false);
+  const [rightCardAddInView, setrightCardAddInView] = useState(false);
+
   const addCardLeft = () => {
-    let localStorageDatekeyNew = localStorageDatekey + 1;
-    setlocalStorageDatekey(localStorageDatekeyNew);
-    localStorage.setItem(
-      "dateLocalStorageKey",
-      localStorageDatekeyNew.toString()
-    );
-    setpageRefreshed(true);
-    setdynamicCardLeft([
-      ...dynamicCardLeft,
-      <CardLeft cardRef="left" keyLeft={localStorageDatekey} />,
-    ]);
+    if (!leftCardAddInView) {
+      let localStorageDatekeyNew = localStorageDatekey + 1;
+      setlocalStorageDatekey(localStorageDatekeyNew);
+      localStorage.setItem(
+        "dateLocalStorageKey",
+        localStorageDatekeyNew.toString()
+      );
+      setpageRefreshed(true);
+      setdynamicCardLeft([
+        ...dynamicCardLeft,
+        <CardLeft cardRef="left" keyLeft={localStorageDatekey} />,
+      ]);
+      setleftCardAddInView(!leftCardAddInView);
+    }
   };
+
   const addCardRight = () => {
-    let localStorageDatekeyNewRight = localStorageDatekeyRight + 1;
-    setlocalStorageDatekeyRight(localStorageDatekeyNewRight);
-    localStorage.setItem(
-      "dateLocalStorageKeyRight",
-      localStorageDatekeyNewRight.toString()
-    );
-    setpageRefreshed(true);
-    setdynamicCardRight([
-      ...dynamicCardRight,
-      <CardRight cardRef="right" keyRight={localStorageDatekeyRight} />,
-    ]);
+    if (!rightCardAddInView) {
+      let localStorageDatekeyNewRight = localStorageDatekeyRight + 1;
+      setlocalStorageDatekeyRight(localStorageDatekeyNewRight);
+      localStorage.setItem(
+        "dateLocalStorageKeyRight",
+        localStorageDatekeyNewRight.toString()
+      );
+      setpageRefreshed(true);
+      setdynamicCardRight([
+        ...dynamicCardRight,
+        <CardRight cardRef="right" keyRight={localStorageDatekeyRight} />,
+      ]);
+      setrightCardAddInView(!rightCardAddInView);
+    }
   };
 
   return (
