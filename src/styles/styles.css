@@ -16,10 +16,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    overflow-y: hidden;
+    padding: 1rem;
 }
 
 .mainCard {
-    min-height: 80vh;
+    min-height: 100vh;
     width: 85%;
     padding: 2rem;
     padding-top: 1.5rem;
@@ -28,7 +32,8 @@ body {
 .topPart {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    margin-bottom: 1rem;
     width: 100%;
 }
 
@@ -42,17 +47,17 @@ body {
 
 .pic,
 .picInput {
-    /* background-color: rgba(0, 0, 0, 0.1); */
-    height: 80px;
-    width: 80px;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
     border: 2px solid white;
     z-index: 1;
-    margin-right: 1rem;
+    margin: 0 0.8rem;
 }
 
 .ying {
-    height: 3rem;
+    height: 70%;
 }
 
 .picInput {
@@ -62,55 +67,43 @@ body {
     align-items: center;
 }
 
-.line {
-    display: none;
-    height: 60%;
-    z-index: 0;
-    width: 3px;
-    background-color: #7EE3D7;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    margin-left: 12px;
-    border-radius: 10px;
-}
-
-.mood:hover {
-    cursor: pointer;
-}
-
 .name {
     color: #E5FFFF;
-    font-size: 25px;
+    font-size: 14px;
     margin-bottom: 5px;
 }
 
 .name1 {
-    margin-left: 2rem;
+    margin-left: 1rem;
 }
 
 .name2 {
-    margin-right: 2rem;
+    margin-right: 1rem;
 }
 
 .middlePart {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     color: #E5FFFF;
+}
+
+.addNoteText {
+    font-size: 12px;
 }
 
 .leftOut,
 .rightOut {
     display: flex;
     flex-direction: column;
-    width: 40%;
-    height: 25rem;
+    width: 100%;
+    height: 15rem;
     overflow-y: scroll;
+    border-bottom: 2px solid #318484;
 }
 
 .leftOut :last-child {
-    margin-bottom: 1rem
+    margin-bottom: 1rem;
 }
 
 .rightOut :last-child {
@@ -127,7 +120,7 @@ body {
 
 .left,
 .right {
-    padding: 2rem;
+    padding: 1rem;
     background: #44b7b7;
     border-radius: 20px;
     margin-top: 1.5rem;
@@ -137,8 +130,12 @@ body {
 
 .date {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 14px;
     margin-bottom: 8px;
+}
+
+.content {
+    font-size: 12px;
 }
 
 .bottomPart {
@@ -148,12 +145,28 @@ body {
     color: #E5FFFF;
 }
 
+.btnResetDiv {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    margin-top: 1rem;
+}
+
+.btnReset {
+    padding: 8px;
+    color: #E5FFFF;
+    border-radius: 10px;
+    background-color: #44b7b7;
+    margin: 0 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
 .bottomPart button {
     padding: 8px;
     border-radius: 10px;
     background-color: #44b7b7;
     margin: 0 10px;
-    font-size: 14px;
+    font-size: 10px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -168,6 +181,16 @@ body {
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 999;
+    color: #E5FFFF;
+}
+
+.modal button {
+    padding: 8px;
+    border-radius: 10px;
+    background-color: #44b7b7;
+    margin: 0 10px;
+    font-size: 12px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .modal-content {
@@ -179,6 +202,156 @@ body {
 
 .button-container {
     margin-top: 20px;
+}
+
+@media screen and (min-width: 920px) {
+    .btnResetDiv {
+        justify-content: center;
+        font-size: 16px;
+    }
+    .addNoteText {
+        font-size: 16px;
+    }
+    .outer-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        padding: 0rem;
+    }
+    .mainCard {
+        min-height: 80vh;
+        width: 85%;
+        padding: 2rem;
+        padding-top: 1.5rem;
+    }
+    .topPart {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 0rem;
+    }
+    .name1Div,
+    .name2Div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .pic,
+    .picInput {
+        background-color: rgba(0, 0, 0, 0.3);
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        border: 2px solid white;
+        z-index: 1;
+        margin-right: 1rem;
+    }
+    .ying {
+        height: 3rem;
+    }
+    .picInput {
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .mood:hover {
+        cursor: pointer;
+    }
+    .name {
+        color: #E5FFFF;
+        font-size: 25px;
+        margin-bottom: 5px;
+    }
+    .name1 {
+        margin-left: 2rem;
+    }
+    .name2 {
+        margin-right: 2rem;
+    }
+    .middlePart {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        color: #E5FFFF;
+    }
+    .leftOut,
+    .rightOut {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        height: 25rem;
+        overflow-y: scroll;
+        border-bottom: none;
+    }
+    .leftOut :last-child {
+        margin-bottom: 1rem
+    }
+    .rightOut :last-child {
+        margin-bottom: 1rem
+    }
+    .leftOut :first-child {
+        margin-top: 0.5rem
+    }
+    .rightOut :first-child {
+        margin-top: 0.5rem
+    }
+    .left,
+    .right {
+        padding: 2rem;
+        background: #44b7b7;
+        border-radius: 20px;
+        margin-top: 1.5rem;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+        height: auto;
+    }
+    .date {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    .content {
+        font-size: 16px;
+    }
+    .bottomPart {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        color: #E5FFFF;
+    }
+    .bottomPart button {
+        padding: 8px;
+        border-radius: 10px;
+        background-color: #44b7b7;
+        margin: 0 10px;
+        font-size: 16px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    }
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+    }
+    .modal-content {
+        background-color: #2B2B2B;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    .button-container {
+        margin-top: 20px;
+    }
 }
 
 @media screen and (min-width: 1500px) {

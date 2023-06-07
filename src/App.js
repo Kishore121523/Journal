@@ -112,7 +112,7 @@ const App = () => {
   };
 
   return (
-    <div className="outer-container bg-[#2B2B2B] min-h-screen w-full">
+    <div className="outer-container bg-[#2B2B2B]">
       <div className="mainCard bg-[#47ABAB] rounded-[20px]">
         <div className="line"></div>
         <TopPart></TopPart>
@@ -132,7 +132,7 @@ const App = () => {
                 />
               ))
             ) : (
-              <div className="text-center	pt-6 text-[18px]">
+              <div className="text-center	pt-6 addNoteText">
                 Press Add Note button to get started
               </div>
             )}
@@ -153,7 +153,7 @@ const App = () => {
                 />
               ))
             ) : (
-              <div className="text-center	pt-6 text-[18px]">
+              <div className="text-center	pt-6 addNoteText">
                 Press Add Note button to get started
               </div>
             )}
@@ -179,28 +179,30 @@ const App = () => {
             >
               Add Note
             </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="rightAddBtn"
-              onClick={handleDeleteClick}
-            >
-              Reset
-            </motion.button>
-            {showModal && (
-              <div className="modal">
-                <div className="modal-content">
-                  <h2 className="font-bold text-rose-500	">Confirm Delete</h2>
-                  <p>Are you sure you want to delete all the data?</p>
-                  <div className="button-container">
-                    <button onClick={handleConfirmDelete}>Delete</button>
-                    <button onClick={handleCancelDelete}>Cancel</button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </div>
+        <div className="btnResetDiv">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="rightAddBtn btnReset"
+            onClick={handleDeleteClick}
+          >
+            Reset
+          </motion.button>
+        </div>
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2 className="font-bold text-rose-500">Confirm Delete</h2>
+              <p>Are you sure you want to delete all the data?</p>
+              <div className="button-container">
+                <button onClick={handleConfirmDelete}>Delete</button>
+                <button onClick={handleCancelDelete}>Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
