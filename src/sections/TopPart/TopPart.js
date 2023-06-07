@@ -87,8 +87,6 @@ const TopPart = () => {
     fileInputRef.current.click();
   };
 
-  console.log(imageInDB);
-
   return (
     <div className="topPart">
       <div className="name1Div">

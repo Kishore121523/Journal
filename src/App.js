@@ -16,13 +16,20 @@ const App = () => {
   const [localStorageDatekeyRight, setlocalStorageDatekeyRight] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
+  const [dataLeft, setDataLeft] = useState([]);
+  const [searchQueryLeft, setsearchQueryLeft] = useState("");
+  const [filteredDataLeft, setfilteredDataLeft] = useState([]);
+  const [dataRight, setDataRight] = useState([]);
+  const [searchQueryRight, setsearchQueryRight] = useState("");
+  const [filteredDataRight, setfilteredDataRight] = useState([]);
+
   let defaultDateKey = 0;
   let defaultDateKeyRight = 0;
 
   useEffect(() => {
     setpageRefreshed(true);
 
-    const fetchData = async () => {
+    const fetchDataLeft = async () => {
       const snapshot = await firebase
         .database()
         .ref("cards/left/date/")
@@ -36,7 +43,9 @@ const App = () => {
         .once("value");
       const fetchedContent = snapshotContent.val();
       setcontentReadFromDB(fetchedContent);
+    };
 
+    const fetchDataRight = async () => {
       const snapshotRight = await firebase
         .database()
         .ref("cards/right/date/")
@@ -51,8 +60,8 @@ const App = () => {
       const fetchedContentRight = snapshotContentRight.val();
       setcontentReadFromDBRight(fetchedContentRight);
     };
-
-    fetchData();
+    fetchDataLeft();
+    fetchDataRight();
 
     const storedValue = localStorage.getItem("dateLocalStorageKey");
     if (storedValue) {
@@ -63,6 +72,47 @@ const App = () => {
       setlocalStorageDatekeyRight(parseInt(storedValueRight));
     }
   }, []);
+
+  useEffect(() => {
+    const fetchDataSearchLeft = async () => {
+      const snapshotSearchLeft = await firebase
+        .database()
+        .ref("cards/left/content/")
+        .once("value");
+      if (snapshotSearchLeft.val() !== null) {
+        const fetchedDataLeft = snapshotSearchLeft.val();
+        setDataLeft(fetchedDataLeft);
+      } else return;
+    };
+
+    const fetchDataSearchRight = async () => {
+      const snapshotSearchRight = await firebase
+        .database()
+        .ref("cards/right/content/")
+        .once("value");
+      if (snapshotSearchRight.val() !== null) {
+        const fetchedDataRight = snapshotSearchRight.val();
+        setDataRight(fetchedDataRight);
+      } else return;
+    };
+
+    fetchDataSearchLeft();
+    fetchDataSearchRight();
+  }, []);
+
+  useEffect(() => {
+    const filteredResults = dataLeft.filter((item) => {
+      return item.value.toLowerCase().includes(searchQueryLeft.toLowerCase());
+    });
+    setfilteredDataLeft(filteredResults);
+  }, [dataLeft, searchQueryLeft]);
+
+  useEffect(() => {
+    const filteredResultsRight = dataRight.filter((item) => {
+      return item.value.toLowerCase().includes(searchQueryRight.toLowerCase());
+    });
+    setfilteredDataRight(filteredResultsRight);
+  }, [dataRight, searchQueryRight]);
 
   const handleDeleteClick = () => {
     setShowModal(true);
@@ -118,15 +168,32 @@ const App = () => {
         <TopPart></TopPart>
         <div className="middlePart">
           <div className="leftOut">
+            <input
+              className="searchField"
+              type="text"
+              placeholder="Search text..."
+              value={searchQueryLeft}
+              onChange={(e) => setsearchQueryLeft(e.target.value)}
+            />
+
             {!(dynamicCardLeft.length === 0 && pageRefreshed) ? (
               dynamicCardLeft.map((component, index) => (
                 <React.Fragment key={index}>{component}</React.Fragment>
               ))
-            ) : dateReadFromDB != null ? (
+            ) : dateReadFromDB != null && filteredDataLeft === null ? (
               contentReadFromDB.map((comp, index) => (
                 <CardLeft
                   dateFromDB={dateReadFromDB[index].value}
                   contentFromDB={contentReadFromDB[index].value}
+                  cardRef="left"
+                  keyLeft={index}
+                />
+              ))
+            ) : filteredDataLeft !== null ? (
+              filteredDataLeft.map((item, index) => (
+                <CardLeft
+                  dateFromDB={dateReadFromDB[index].value}
+                  contentFromDB={item.value}
                   cardRef="left"
                   keyLeft={index}
                 />
@@ -139,15 +206,31 @@ const App = () => {
           </div>
 
           <div className="rightOut">
+            <input
+              className="searchField"
+              type="text"
+              placeholder="Search text..."
+              value={searchQueryRight}
+              onChange={(e) => setsearchQueryRight(e.target.value)}
+            />
             {!(dynamicCardRight.length === 0 && pageRefreshed) ? (
               dynamicCardRight.map((component, index) => (
                 <React.Fragment key={index}>{component}</React.Fragment>
               ))
-            ) : dateReadFromDBRight != null ? (
+            ) : dateReadFromDBRight != null && filteredDataRight === null ? (
               contentReadFromDBRight.map((comp, index) => (
                 <CardRight
                   dateFromDB={dateReadFromDBRight[index].value}
                   contentFromDB={contentReadFromDBRight[index].value}
+                  cardRef="right"
+                  keyRight={index}
+                />
+              ))
+            ) : filteredDataRight !== null ? (
+              filteredDataRight.map((item, index) => (
+                <CardRight
+                  dateFromDB={dateReadFromDBRight[index].value}
+                  contentFromDB={item.value}
                   cardRef="right"
                   keyRight={index}
                 />

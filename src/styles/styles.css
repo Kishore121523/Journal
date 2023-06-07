@@ -212,6 +212,15 @@ body {
     .addNoteText {
         font-size: 16px;
     }
+    .searchField {
+        background: transparent;
+        border-bottom: 1px solid #E5FFFF;
+        padding: 5px;
+        color: #E5FFFF;
+        width: 60%;
+        font-size: 14px;
+        margin-left: 1rem;
+    }
     .outer-container {
         display: flex;
         justify-content: center;
