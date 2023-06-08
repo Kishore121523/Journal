@@ -39,7 +39,7 @@ const TopPart = () => {
           setImageUrl(images.image);
         })
         .catch((error) => {
-          console.error("Error loading image:", error);
+          console.warn("Error loading image:");
         });
     };
     fetchData();

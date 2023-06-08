@@ -5,7 +5,6 @@ import { InputField, InputFieldContent } from "../";
 const CardLeft = (props) => {
   const [addBtnClicked, setaddBtnClicked] = useState(false);
   const confirmSubmit = () => {
-    window.location.reload(false);
     setaddBtnClicked(!addBtnClicked);
   };
   return (
@@ -22,6 +21,7 @@ const CardLeft = (props) => {
         keyContent={props.keyLeft}
         className="content"
         addBtnClicked={addBtnClicked}
+        donebtnclicked={addBtnClicked}
       />
       {props.editModeLeftDate && props.editModeLeftContent ? (
         <button onClick={confirmSubmit} className="btnConfirmNote">

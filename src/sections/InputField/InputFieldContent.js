@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./InputFieldContent.css";
 import firebase from "../../firebaseConfig";
 
@@ -6,6 +6,12 @@ const InputFieldContent = (props) => {
   const [value, setValue] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [addBtnClickedField, setaddBtnClickedField] = useState();
+
+  useEffect(() => {
+    if (props.donebtnclicked) {
+      if (value) window.location.reload(false);
+    }
+  }, [props.donebtnclicked]);
 
   const handleBlur = () => {
     setIsEditing(false);

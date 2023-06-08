@@ -15,8 +15,6 @@ const InputField = (props) => {
         .ref(`cards/${props.cardRef}/date/${props.keyDate}`);
       cardRef.update({ value });
     }
-
-    // window.location.reload(false);
   };
 
   const handleDoubleClick = () => {
