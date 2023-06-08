@@ -12,8 +12,8 @@ const App = () => {
   const [dateReadFromDBRight, setdateReadFromDBRight] = useState([{}]);
   const [contentReadFromDBRight, setcontentReadFromDBRight] = useState([{}]);
   const [pageRefreshed, setpageRefreshed] = useState(false);
-  const [localStorageDatekey, setlocalStorageDatekey] = useState(0);
-  const [localStorageDatekeyRight, setlocalStorageDatekeyRight] = useState(0);
+  const [dataBaseKeyLeft, setdataBaseKeyLeft] = useState(-1);
+  const [dataBaseKeyRight, setdataBaseKeyRight] = useState(-1);
   const [showModal, setShowModal] = useState(false);
 
   const [dataLeft, setDataLeft] = useState([]);
@@ -23,8 +23,8 @@ const App = () => {
   const [searchQueryRight, setsearchQueryRight] = useState("");
   const [filteredDataRight, setfilteredDataRight] = useState([]);
 
-  let defaultDateKey = 0;
-  let defaultDateKeyRight = 0;
+  let defaultDateKey = -1;
+  let defaultDateKeyRight = -1;
 
   useEffect(() => {
     setpageRefreshed(true);
@@ -60,17 +60,33 @@ const App = () => {
       const fetchedContentRight = snapshotContentRight.val();
       setcontentReadFromDBRight(fetchedContentRight);
     };
+
+    const fetchKeyLeft = async () => {
+      const snapshotKeyLeft = await firebase
+        .database()
+        .ref("keys/leftKeys")
+        .once("value");
+      if (snapshotKeyLeft.val() !== null) {
+        const fetchedKeyLeft = snapshotKeyLeft.val().fetchedKeyLeft;
+        setdataBaseKeyLeft(fetchedKeyLeft);
+      } else return;
+    };
+
+    const fetchKeyRight = async () => {
+      const snapshotKeyRight = await firebase
+        .database()
+        .ref("keys/rightKeys")
+        .once("value");
+      if (snapshotKeyRight.val() !== null) {
+        const fetchedKeyRight = snapshotKeyRight.val().fetchedKeyRight;
+        setdataBaseKeyRight(fetchedKeyRight);
+      } else return;
+    };
+
     fetchDataLeft();
     fetchDataRight();
-
-    const storedValue = localStorage.getItem("dateLocalStorageKey");
-    if (storedValue) {
-      setlocalStorageDatekey(parseInt(storedValue));
-    }
-    const storedValueRight = localStorage.getItem("dateLocalStorageKeyRight");
-    if (storedValueRight) {
-      setlocalStorageDatekeyRight(parseInt(storedValueRight));
-    }
+    fetchKeyLeft();
+    fetchKeyRight();
   }, []);
 
   useEffect(() => {
@@ -126,13 +142,9 @@ const App = () => {
   };
 
   const handleConfirmDelete = () => {
-    setlocalStorageDatekey(defaultDateKey);
-    setlocalStorageDatekeyRight(defaultDateKeyRight);
-    localStorage.setItem("dateLocalStorageKey", defaultDateKey.toString());
-    localStorage.setItem(
-      "dateLocalStorageKeyRight",
-      defaultDateKeyRight.toString()
-    );
+    setdataBaseKeyLeft(defaultDateKey);
+    setdataBaseKeyRight(defaultDateKeyRight);
+
     firebase.database().ref().remove();
     window.location.reload(false);
   };
@@ -142,12 +154,11 @@ const App = () => {
 
   const addCardLeft = () => {
     if (!leftCardAddInView) {
-      let localStorageDatekeyNew = localStorageDatekey + 1;
-      setlocalStorageDatekey(localStorageDatekeyNew);
-      localStorage.setItem(
-        "dateLocalStorageKey",
-        localStorageDatekeyNew.toString()
-      );
+      const localStorageDatekeyNew = dataBaseKeyLeft + 1;
+      const cardRef = firebase.database().ref(`keys/leftKeys`);
+      cardRef.set({ fetchedKeyLeft: localStorageDatekeyNew });
+      setdataBaseKeyLeft(localStorageDatekeyNew);
+
       setpageRefreshed(true);
       setdynamicCardLeft([
         ...dynamicCardLeft,
@@ -155,7 +166,7 @@ const App = () => {
           editModeLeftDate={true}
           editModeLeftContent={true}
           cardRef="left"
-          keyLeft={localStorageDatekey}
+          keyLeft={dataBaseKeyLeft + 1}
         />,
       ]);
       setleftCardAddInView(!leftCardAddInView);
@@ -164,12 +175,11 @@ const App = () => {
 
   const addCardRight = () => {
     if (!rightCardAddInView) {
-      let localStorageDatekeyNewRight = localStorageDatekeyRight + 1;
-      setlocalStorageDatekeyRight(localStorageDatekeyNewRight);
-      localStorage.setItem(
-        "dateLocalStorageKeyRight",
-        localStorageDatekeyNewRight.toString()
-      );
+      const localStorageDatekeyNewRight = dataBaseKeyRight + 1;
+      const cardRef = firebase.database().ref(`keys/rightKeys`);
+      cardRef.set({ fetchedKeyRight: localStorageDatekeyNewRight });
+      setdataBaseKeyLeft(localStorageDatekeyNewRight);
+
       setpageRefreshed(true);
       setdynamicCardRight([
         ...dynamicCardRight,
@@ -177,7 +187,7 @@ const App = () => {
           editModeRightDate={true}
           editModeRightContent={true}
           cardRef="right"
-          keyRight={localStorageDatekeyRight}
+          keyRight={dataBaseKeyRight + 1}
         />,
       ]);
       setrightCardAddInView(!rightCardAddInView);

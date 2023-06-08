@@ -44,7 +44,7 @@ const InputFieldContent = (props) => {
     </p>
   ) : (
     <p className="content" onClick={handleDoubleClick}>
-      {value ? value : "How was your day?"}
+      {value ? value : "How was your dayyy?"}
     </p>
   );
 };

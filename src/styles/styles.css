@@ -205,15 +205,33 @@ body {
 }
 
 .btnConfirmNote {
-    padding: 8px 10px;
-    border-radius: 10px;
+    padding: 4px 6px;
+    border-radius: 5px;
     background-color: #399c9c;
-    font-size: 12px;
+    font-size: 8px;
     margin-top: 10px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
+.searchField {
+    background: transparent;
+    border-bottom: 1px solid #E5FFFF;
+    padding: 5px;
+    color: #E5FFFF;
+    width: 60%;
+    font-size: 10px;
+    margin-left: 1rem;
+}
+
 @media screen and (min-width: 920px) {
+    .btnConfirmNote {
+        padding: 8px 10px;
+        border-radius: 10px;
+        background-color: #399c9c;
+        font-size: 12px;
+        margin-top: 10px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    }
     .btnResetDiv {
         justify-content: center;
         font-size: 16px;
