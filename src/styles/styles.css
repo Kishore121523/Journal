@@ -204,6 +204,15 @@ body {
     margin-top: 20px;
 }
 
+.btnConfirmNote {
+    padding: 8px 10px;
+    border-radius: 10px;
+    background-color: #399c9c;
+    font-size: 12px;
+    margin-top: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
 @media screen and (min-width: 920px) {
     .btnResetDiv {
         justify-content: center;

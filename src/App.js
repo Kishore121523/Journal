@@ -151,7 +151,12 @@ const App = () => {
       setpageRefreshed(true);
       setdynamicCardLeft([
         ...dynamicCardLeft,
-        <CardLeft cardRef="left" keyLeft={localStorageDatekey} />,
+        <CardLeft
+          editModeLeftDate={true}
+          editModeLeftContent={true}
+          cardRef="left"
+          keyLeft={localStorageDatekey}
+        />,
       ]);
       setleftCardAddInView(!leftCardAddInView);
     }
@@ -168,7 +173,12 @@ const App = () => {
       setpageRefreshed(true);
       setdynamicCardRight([
         ...dynamicCardRight,
-        <CardRight cardRef="right" keyRight={localStorageDatekeyRight} />,
+        <CardRight
+          editModeRightDate={true}
+          editModeRightContent={true}
+          cardRef="right"
+          keyRight={localStorageDatekeyRight}
+        />,
       ]);
       setrightCardAddInView(!rightCardAddInView);
     }
@@ -198,6 +208,8 @@ const App = () => {
                 <CardLeft
                   dateFromDB={dateReadFromDB[index].value}
                   contentFromDB={contentReadFromDB[index].value}
+                  editModeLeftDate={true}
+                  editModeLeftContent={true}
                   cardRef="left"
                   keyLeft={index}
                 />
@@ -235,6 +247,8 @@ const App = () => {
                 <CardRight
                   dateFromDB={dateReadFromDBRight[index].value}
                   contentFromDB={contentReadFromDBRight[index].value}
+                  editModeRightDate={true}
+                  editModeRightContent={true}
                   cardRef="right"
                   keyRight={index}
                 />

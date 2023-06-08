@@ -5,6 +5,7 @@ import firebase from "../../firebaseConfig";
 const InputFieldContent = (props) => {
   const [value, setValue] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [addBtnClickedField, setaddBtnClickedField] = useState();
 
   const handleBlur = () => {
     setIsEditing(false);
@@ -14,7 +15,9 @@ const InputFieldContent = (props) => {
         .ref(`cards/${props.cardRef}/content/${props.keyContent}`);
       cardRef.update({ value });
     }
-    window.location.reload(false);
+
+    setaddBtnClickedField(!props.addBtnClicked);
+    // window.location.reload(false);
   };
 
   const handleDoubleClick = () => {
@@ -35,7 +38,7 @@ const InputFieldContent = (props) => {
       autoFocus
       style={{ backgroundColor: "transparent", color: "white", border: "none" }}
     />
-  ) : props.contentFromDB ? (
+  ) : props.contentFromDB && !addBtnClickedField ? (
     <p className="content" onClick={handleDoubleClick}>
       {props.contentFromDB ? props.contentFromDB : "How was your day?"}
     </p>
