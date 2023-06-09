@@ -11,6 +11,7 @@ const InputFieldContent = (props) => {
     if (props.donebtnclicked) {
       if (value) window.location.reload(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.donebtnclicked]);
 
   const handleBlur = () => {

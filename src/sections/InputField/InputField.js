@@ -5,6 +5,7 @@ import firebase from "../../firebaseConfig";
 const InputField = (props) => {
   const [value, setValue] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [ftDate, setfTDate] = useState("");
 
   const handleBlur = () => {
     setIsEditing(false);
@@ -15,6 +16,8 @@ const InputField = (props) => {
         .ref(`cards/${props.cardRef}/date/${props.keyDate}`);
       cardRef.update({ value });
     }
+    const formattedDate = formatDate(value);
+    setfTDate(formattedDate);
   };
 
   const handleDoubleClick = () => {
@@ -33,6 +36,7 @@ const InputField = (props) => {
     );
     return formattedDate;
   };
+
   const formatDateDB = (formatDateDB) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     const formattedDateDB = new Date(formatDateDB).toLocaleDateString(
@@ -42,7 +46,6 @@ const InputField = (props) => {
     return formattedDateDB;
   };
 
-  const formattedDate = formatDate(value);
   const formattedDateDB = formatDateDB(props.dateFromDB);
 
   return isEditing ? (
@@ -54,13 +57,13 @@ const InputField = (props) => {
       placeholder="Enter Date"
       style={{ backgroundColor: "transparent", color: "white", border: "none" }}
     />
-  ) : formattedDateDB === "Invalid Date" ? (
+  ) : ftDate === "" ? (
     <p className="date" onClick={handleDoubleClick}>
-      {formattedDate !== "Invalid Date" ? formattedDate : "Enter Date"}
+      {formattedDateDB !== "Invalid Date" ? formattedDateDB : "Enter Date"}
     </p>
   ) : (
     <p className="date" onClick={handleDoubleClick}>
-      {formattedDateDB ? formattedDateDB : "Enter Date"}
+      {ftDate ? ftDate : "Enter Date"}
     </p>
   );
 };
